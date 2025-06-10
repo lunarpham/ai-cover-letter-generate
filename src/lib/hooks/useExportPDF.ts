@@ -1,9 +1,6 @@
 import { jsPDF } from "jspdf";
 import { toast } from "react-hot-toast";
-import {
-  formatHeaderDate,
-  hasDatePrefix,
-} from "@/lib/utils/dateHelpers";
+import { formatHeaderDate, hasDatePrefix } from "@/lib/utils/dateHelpers";
 
 export function useExportPDF() {
   const saveAsPdf = (content: string, title: string) => {
@@ -19,24 +16,18 @@ export function useExportPDF() {
         format: "a4",
       });
 
-      const formattedDate = formatHeaderDate();
+      const leftMargin = 10;
+      const rightMargin = 10;
+      const pageWidth = 290;
+      const usableWidth = pageWidth - leftMargin - rightMargin;
 
-      // If content doesn't have a date, add it to the PDF directly
-      // Otherwise, we'll assume it's already in the content
-      if (!hasDatePrefix(content)) {
-        doc.setFont("serif");
-        doc.setFontSize(12);
-        doc.text(formattedDate, 15, 15);
-      }
+      const yPosition = 15;
+      const splitText = doc.splitTextToSize(content, usableWidth);
 
-      // We could optionally remove any date prefix from content to avoid duplication
-      // const cleanContent = removeDatePrefix(content);
+      doc.setFont("serif");
+      doc.setFontSize(12);
 
-      const yPosition = hasDatePrefix(content) ? 15 : 25;
-      // Split text into lines for better formatting
-      const splitText = doc.splitTextToSize(content, 180);
-
-      doc.text(splitText, 15, yPosition);
+      doc.text(splitText, leftMargin, yPosition);
       doc.save(`${title || "Cover Letter"}.pdf`);
 
       toast.success("Cover letter saved as PDF");
