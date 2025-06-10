@@ -1,6 +1,6 @@
 import { jsPDF } from "jspdf";
 import { toast } from "react-hot-toast";
-import { formatHeaderDate, hasDatePrefix } from "@/lib/utils/dateHelpers";
+import { formatHeaderDate } from "@/lib/utils/dateHelpers";
 
 export function useExportPDF() {
   const saveAsPdf = (content: string, title: string) => {
