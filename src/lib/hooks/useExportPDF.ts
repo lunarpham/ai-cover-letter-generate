@@ -3,7 +3,6 @@ import { toast } from "react-hot-toast";
 import {
   formatHeaderDate,
   hasDatePrefix,
-  removeDatePrefix,
 } from "@/lib/utils/dateHelpers";
 
 export function useExportPDF() {

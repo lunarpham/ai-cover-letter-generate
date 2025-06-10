@@ -27,7 +27,6 @@ import { useSavedLetters } from "@/lib/hooks/useSavedLetter";
 export default function Create() {
   const [documentTitle, setDocumentTitle] =
     useState<string>("Untitled Document");
-  const [showSparkleAnimation, setShowSparkleAnimation] = useState(false);
   const [insertFromProfile, setInsertFromProfile] = useState<boolean>(false);
   const { profileData, isLoading: profileLoading } = useProfile();
 
@@ -116,9 +115,6 @@ export default function Create() {
       return;
     }
 
-    setShowSparkleAnimation(true);
-
-    // Update form data to include today's date
     setFormData((prev) => ({
       ...prev,
       contents: {
@@ -128,7 +124,6 @@ export default function Create() {
     }));
 
     await generateCoverLetter(formData);
-    setShowSparkleAnimation(false);
   };
 
   const handleSaveLetter = () => {

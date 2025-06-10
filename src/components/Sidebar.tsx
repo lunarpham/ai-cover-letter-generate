@@ -1,16 +1,10 @@
-import React, { useState } from "react";
 import { SquarePen, BookMarked, User } from "lucide-react";
 import { Link, useLocation } from "react-router";
 import { Constants } from "@/lib/constants";
 import { useProfile } from "@/lib/contexts/profileContext";
 
 export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed);
-  };
-
-  const { profileData, isLoading } = useProfile();
+  const { profileData } = useProfile();
   const location = useLocation();
 
   const navigationRoutes = [
@@ -38,7 +32,7 @@ export default function Sidebar() {
                 }`}
               >
                 {route.icon}
-                {!isCollapsed && <span>{route.name}</span>}
+                <span>{route.name}</span>
               </div>
             </Link>
           ))}
@@ -66,16 +60,15 @@ export default function Sidebar() {
               </div>
             )}
           </div>
-          {!isCollapsed && (
-            <div className="text-start flex flex-col">
-              <span className="font-medium">
-                {profileData?.name || "Your Profile"}
-              </span>
-              <span className="text-xs text-gray-600">
-                {profileData?.username || "Update your profile"}
-              </span>
-            </div>
-          )}
+
+          <div className="text-start flex flex-col">
+            <span className="font-medium">
+              {profileData?.name || "Your Profile"}
+            </span>
+            <span className="text-xs text-gray-600">
+              {profileData?.username || "Update your profile"}
+            </span>
+          </div>
         </Link>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ensureDatePrefix, removeDatePrefix } from "@/lib/utils/dateHelpers";
+import { ensureDatePrefix } from "@/lib/utils/dateHelpers";
 
 export function useLetterContent(generatedContent: string | null) {
   const [editableCoverLetter, setEditableCoverLetter] = useState<string>("");
