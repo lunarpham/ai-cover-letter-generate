@@ -450,6 +450,7 @@ export default function Create() {
                   ))
                 : null}
               <button
+                type="button"
                 className="w-full rounded-lg bg-gray-200 p-3 text-sm inline-flex gap-2 items-center justify-center hover:bg-gray-300 cursor-pointer"
                 aria-label="Add work experience"
                 onClick={addWorkExperience}

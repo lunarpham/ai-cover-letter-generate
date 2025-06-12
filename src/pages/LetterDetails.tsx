@@ -63,7 +63,7 @@ export default function LetterDetails() {
   const handleExportPdf = () => {
     if (editedContent) {
       saveAsPdf(editedContent, editedTitle);
-      toast.success("Exporting as PDF");
+      toast.success("Letter exported as PDF");
     }
   };
 
@@ -71,7 +71,7 @@ export default function LetterDetails() {
   const handleCopyToClipboard = () => {
     if (editedContent) {
       copyToClipboard(editedContent);
-      toast.success("Copied to clipboard");
+      toast.success("Letter copied to clipboard");
     }
   };
 
@@ -132,7 +132,7 @@ export default function LetterDetails() {
             </button>
           </div>
         </div>
-        <div className="w-full max-h-full bg-gray-300 p-6 overflow-y-scroll">
+        <div className="w-full h-full bg-gray-300 p-6 overflow-y-scroll">
           <div className="w-full bg-white shadow-lg p-3 font-serif text-sm">
             <Textarea
               value={editedContent}

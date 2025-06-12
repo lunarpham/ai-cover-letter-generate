@@ -15,19 +15,20 @@ import { useLocalStorage } from "@/lib/hooks/useLocalStorage";
 import { toast } from "react-hot-toast";
 import { Meta } from "@/layout";
 import { Save } from "lucide-react";
+import type { ProfileData } from "@/lib/contexts/profileContext";
 
 export default function Profile() {
   const { profileData, isLoading, error, updateProfile } = useProfile();
   const { setItem } = useLocalStorage();
-  const [formData, setFormData] = useState({
-    name: profileData?.name || "",
-    email: profileData?.email || "",
-    phone: profileData?.phone || "",
-    birthday: profileData?.birthday || "",
-    gender: profileData?.gender || "",
-    occupation: profileData?.occupation || "",
-    address: profileData?.address || "",
-    profilePicture: profileData?.profilePicture || "",
+  const [formData, setFormData] = useState<ProfileData>({
+    name: "",
+    email: "",
+    phone: "",
+    birthday: "",
+    gender: "",
+    occupation: "",
+    address: "",
+    profilePicture: "",
   });
 
   // Update form when profile data loads
@@ -41,12 +42,10 @@ export default function Profile() {
         gender: profileData.gender || "",
         occupation: profileData.occupation || "",
         address: profileData.address || "",
-        profilePicture: profileData.profilePicture || "",
       });
     }
   }, [profileData]);
-
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: keyof ProfileData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -153,10 +152,10 @@ export default function Profile() {
               <div className="space-y-2">
                 <Label htmlFor="gender">Gender</Label>
                 <Select
-                  value={formData.gender}
+                  value={profileData?.gender || ""}
                   onValueChange={(value) => handleChange("gender", value)}
                 >
-                  <SelectTrigger id="gender">
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select your gender" />
                   </SelectTrigger>
                   <SelectContent>
@@ -164,10 +163,6 @@ export default function Profile() {
                       <SelectLabel>Gender</SelectLabel>
                       <SelectItem value="male">Male</SelectItem>
                       <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                      <SelectItem value="prefer-not-to-say">
-                        Prefer not to say
-                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -192,20 +187,6 @@ export default function Profile() {
                   placeholder="Enter your address"
                 />
               </div>
-            </div>
-            <div className="basis-4/12 flex flex-col items-center justify-start">
-              <div className="w-48 aspect-square rounded-full overflow-hidden bg-gray-200 mb-4">
-                <img
-                  src={formData.profilePicture || ""}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <Input
-                placeholder="Paste your image link"
-                value={formData.profilePicture}
-                onChange={(e) => handleChange("profilePicture", e.target.value)}
-              />
             </div>
           </div>
 
